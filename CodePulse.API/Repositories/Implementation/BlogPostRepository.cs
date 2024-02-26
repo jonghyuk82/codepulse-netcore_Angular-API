@@ -1,10 +1,11 @@
 ﻿using CodePulse.API.Data;
 using CodePulse.API.Models.Domain;
+using Microsoft.EntityFrameworkCore;
 using CodePulse.API.Repositories.Interface;
 
 namespace CodePulse.API.Repositories.Implementation
 {
-    public class BlogPostRepository : IBlogPostRepository
+	public class BlogPostRepository : IBlogPostRepository
     {
         private readonly ApplicationDbContext dbContext;
 
@@ -19,5 +20,10 @@ namespace CodePulse.API.Repositories.Implementation
 
             return blogPost;
         }
-    }
+
+		public async Task<IEnumerable<BlogPost>> GetAllAsync()
+		{
+            return await dbContext.BlogPosts.ToListAsync();
+		}
+	}
 }
